@@ -107,7 +107,7 @@
               <div>但，要有底线</div>
             </div>
             <div class="pre-btn" @click="navMain">
-              新世界
+              看文章
             </div>
           </div>
           <div class="footer">

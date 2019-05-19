@@ -1,5 +1,4 @@
 <style lang="less" scoped>
-
 .Slide2{
   background: rgb(76,179,127);
 }
@@ -52,7 +51,78 @@
       cursor: pointer;
     }
     .pre-btn:hover{
-      background: rgb(91, 152, 226);;
+      background: rgb(91, 152, 226);
+    }
+    .login-btn{
+      background: rgb(10, 187, 115);
+      opacity: 0;
+      position: absolute;
+      left: 50%;
+      margin-left: -140px;
+    }
+    .loging{
+      background: rgb(150, 187, 115);
+      color: white;
+      font-size: 12px;
+      width: 280px;
+      height: 40px;
+      line-height: 40px;
+      margin: 0 auto;
+      margin-top: -40px;
+      border-radius: 5px;
+    }
+    .login-btn:hover{
+      background: rgb(90, 187, 115);
+    }
+    .fadeAnimation{
+      animation: fadeAnimation .5s alternate forwards;
+    }
+    @keyframes fadeAnimation {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    .loginAnimation{
+      animation: loginAnim .5s alternate forwards .4s;
+    }
+    @keyframes loginAnim {
+      0% {
+        opacity: 0;
+        margin-top: 0px;
+      }
+      100% {
+        opacity: 1;
+        margin-top: -40px;
+      }
+    }
+    .pre-form{
+      width: 280px;
+      position: absolute;
+      margin-top: 10px;
+      opacity: 0;
+      left: 20%;
+      .pre-form-inp{
+        text-align: center;
+        width: 280px;
+        height: 40px;
+        line-height: 40px;
+        background: white;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+      input{
+        background: none;
+        outline: none;
+        border: none;
+        width: 260px;
+        line-height: 35px;
+      }
+    }
+    .pre-form-animation{      
+      animation: formAnim .8s alternate forwards .5s;
+    }
+    @keyframes formAnim {
+      from { left: 20%; margin-left: 0px; opacity: 0;}
+      to { left: 50%; margin-left: -140px; opacity: 1;}
     }
   }
   .footer{
@@ -106,8 +176,20 @@
               <div>做人嘛，就是开始咯</div>
               <div>但，要有底线</div>
             </div>
-            <div class="pre-btn" @click="navMain">
+            <div class="pre-btn" :class="ifTest ? 'fadeAnimation' : ''" @click="navMain">
               看文章
+            </div>
+            <div v-if="openLoading" class="pre-btn login-btn" :class="ifTest ? 'loginAnimation' : ''" @click="login">
+              登录
+            </div>
+            <div v-else class="loging"> 登录中.... </div>
+            <div class="pre-form" :class="ifTest ? 'pre-form-animation' : ''">
+              <div class="pre-form-inp">
+                <input type="text" v-model="formUser.username" placeholder="用户名，没有会自动注册哦">
+              </div>
+              <div class="pre-form-inp">
+                <input type="password" v-model="formUser.password" placeholder="密码">
+              </div>
             </div>
           </div>
           <div class="footer">
@@ -125,7 +207,7 @@
         </section>
         <section class="line"></section>
         <section class="next">
-          吴雨村 是一个好人吗？
+          吴雨村 是一个好人吗?
         </section>        
       </swiper-slide>
       <swiper-slide class="Slide2">
@@ -135,13 +217,18 @@
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
+    <popUp  v-bind:faterName="ifPop"></popUp>
   </div>
 </template>
 <script>
+import axios from 'axios'
+
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import vResume from '../components/HomePage/resume'
 import vTexiao from '../components/HomePage/canvas'
+import popUp from '../common/popUp'
+import { login, register } from '@/api/getData'
 export default {
   data () {
     return {
@@ -181,6 +268,13 @@ export default {
             return '<span class="' + className + '" style="width:25px;height:25px;line-height:25px;background:grey;color:white;font-size:10px">' + text + '</span>'
           }
         }
+      },
+      ifTest: false,
+      openLoading: true, // 是否已经点击了登录按钮
+      ifPop: false,
+      formUser: {
+        username: 'wyc7758775',
+        password: '123456'
       }
     }
   },
@@ -193,14 +287,51 @@ export default {
     swiper,
     swiperSlide,
     vResume,
-    vTexiao
+    vTexiao,
+    popUp
   },
   methods: {
-    navMain () {
-      this.$router.push({
-        path: '/main'
-      })
+    async getLoginData () {
+      try {
+        const loginInfo = await login(this.formUser)
+        console.log(loginInfo)
+        if(loginInfo.data.code === 200) {
+          if(loginInfo.data.msg){
+            this.$router.push({
+              path: '/main'
+            })
+          } else {
+            console.log('密码错误')
+            this.ifPop = true
+            this.openLoading = true
+          }          
+        } else {
+          this.openLoading = true
+          console.log('用户不存在')
+        }
+      } catch (error) {
+        this.openLoading = true
+        console.log('注册失败')
+      }
     },
+    async getRegisterData () {
+      try {
+        const registerInfo = await register(this.formUser)
+        console.log(registerInfo)
+        this.openLoading = true
+      } catch (error) {
+        this.openLoading = true
+        console.log('注册失败')
+      }
+    },
+    navMain () {
+      console.log('开始消失')
+      this.ifTest = true
+    },
+    login () {
+      this.getLoginData()
+      this.openLoading = false
+    }
   }
 }
 </script>

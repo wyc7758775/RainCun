@@ -62,6 +62,7 @@ main{
   height: 35px;
   overflow: hidden;
   border-radius: 50%;
+  cursor: pointer;
   img{
     width: 100%;
     height: 100%;
@@ -94,19 +95,22 @@ main{
             <input type="text" placeholder="search blog">
           </div>
           <div class="menu-box">
-            <div class="menue-item" v-for="(item, index) in menue" :key="index">
-              <router-link to="/main/about">
+            <div 
+              class="menue-item" 
+              v-for="(item, index) in menue" 
+              :key="index">
+              <router-link :to="item.label">
                 <svg class="icon" aria-hidden="true">
                   <use :xlink:href="item.iconName"></use>
                 </svg>
                 <span>{{item.name}}</span>
-                <div class="line"></div>
-              </router-link>              
+                <div class="line"></div>  
+              </router-link>                    
             </div>
           </div>
         </section>
         <section class="portrait">
-          <div class="portrait">
+          <div class="portrait" @click="logout">
             <img src="../assets/E74647DB346A1F0CDD681D3DD8E6A4D6.jpg" alt="大哥">
           </div>
         </section>
@@ -121,18 +125,27 @@ export default {
       menue: [
         {
           iconName: '#icon-xiewenzhang',
-          name: '文章'
+          name: '文章',
+          label: '/main/article'
         },{
           iconName: '#icon-liuyan',
-          name: '留言'
+          name: '留言',
+          label: '/main/about'
         },{
           iconName: '#icon-xiangce',
-          name: '相册'
+          name: '相册',
+          label: '/main/about'
         },{
           iconName: '#icon-iconzhengli-',
-          name: '关于我'
+          name: '关于我',
+          label: '/main/about'
         },
       ]
+    }
+  },
+  methods: {
+    logout () {
+      this.$router.replace({ path: '/' })
     }
   }
 }

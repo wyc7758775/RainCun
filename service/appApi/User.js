@@ -48,7 +48,31 @@ router.post('/register', async(ctx) => {
     msg = error
   })
   ctx.body = {
-    code,msg
+    code, msg
+  }
+})
+
+// 测试
+router.post('/addLeaveMsg', async(ctx) => {
+  const leaveMsgData = ctx.request.body
+  const LeaveMsg = mongoose.model('leaveMsg')  
+  let testData = {
+    nickName: '村小弟',
+    content: '你是我大哥，以后你说什么就是什么'
+  }
+  console.log(testData)
+  let code, msg
+  let newLeaveMsg = new LeaveMsg(testData)
+  await newLeaveMsg.save().then(() => {
+    code = 200
+    msg = '添加成功'
+  }).catch(error => {
+    console.log(error)
+    code = 500
+    msg = error
+  })
+  ctx.body = {
+    code, msg
   }
 })
 

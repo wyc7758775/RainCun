@@ -16,7 +16,6 @@ main{
     .menu-box{
       margin-left: 100px;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       .menue-item{
         margin-right: 30px;
@@ -51,8 +50,9 @@ main{
   }
 }
 .header{
-  width: 100vw;
-  height: 50px;
+  width: 100%;
+  height: 6vh;
+  // padding: 5px 0;
   background: rgb(64, 71, 86);
   display: flex;
   align-items: center;
@@ -130,7 +130,7 @@ export default {
         },{
           iconName: '#icon-liuyan',
           name: '留言',
-          label: '/main/about'
+          label: '/main/leaveMsg'
         },{
           iconName: '#icon-xiangce',
           name: '相册',

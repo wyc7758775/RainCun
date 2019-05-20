@@ -6,11 +6,10 @@ const SALT_WORK_FACTOR = 10
 // 创建我们的用户Schema
 const userSchema = new Schema({
     UserId: ObjectId,
-    userName: { unique:true, type:String },
+    userName: { unique: true, type: String },
     password: String,
-    createAt: { type:Date, default:Date.now() },
-    lastLoginAt: { type:Date, default:Date.now() }
-
+    createAt: { type: Date, default: Date.now() },
+    lastLoginAt: { type: Date, default: Date.now() }
 })
 // 每次存储数据时都要执行
 userSchema.pre('save', function(next)  {
@@ -35,5 +34,5 @@ userSchema.methods = {
       })
   }
 }
-//发布模型
+// 发布模型
 mongoose.model('User', userSchema)

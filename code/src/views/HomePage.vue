@@ -173,7 +173,7 @@
           <div class="pre-box">
             <div class="pre-title">橘子叔 爱吃橘子</div>
             <div class="pre-text">
-              <div>做人嘛，就是开始咯</div>
+              <div>做人嘛，就是开心咯</div>
               <div>但，要有底线</div>
             </div>
             <div class="pre-btn" :class="ifTest ? 'fadeAnimation' : ''" @click="navMain">
@@ -261,9 +261,6 @@ export default {
             switch(index){
               case 0: text='壹'; break;
               case 1: text='贰'; break;
-              case 2: text='叁'; break;
-              case 3: text='肆'; break;
-              case 4: text='伍'; break;
             }
             return '<span class="' + className + '" style="width:25px;height:25px;line-height:25px;background:grey;color:white;font-size:10px">' + text + '</span>'
           }
@@ -295,8 +292,9 @@ export default {
       try {
         const loginInfo = await login(this.formUser)
         console.log(loginInfo)
-        if(loginInfo.data.code === 200) {
-          if(loginInfo.data.msg){
+        if(loginInfo.data.code === 200) {    
+          if(loginInfo.data.msg) {
+            this.$store.commit('getUserId', loginInfo.data.data.userId) 
             this.$router.push({
               path: '/main'
             })
@@ -328,7 +326,7 @@ export default {
       console.log('开始消失')
       this.ifTest = true
     },
-    login () {
+    login () {         
       this.getLoginData()
       this.openLoading = false
     }

@@ -7,11 +7,11 @@ main{
   background: rgb(35, 37, 39);
   width: 160px;
   height: 94vh;
-  color: white;
+  color: rgb(222, 222, 222);
   .menu-item{
     display: flex;
     align-items: center;
-    padding: 8px 0;
+    padding: 8px 0 8px 8px;
     cursor: pointer;
     overflow: hidden;
     .menu-item-value{
@@ -53,27 +53,63 @@ main{
     }
   }
   .book-item:hover{
-    border-left: 5px solid rgb(62, 119, 192);
+    border-left: 6px solid rgb(62, 119, 192);
+  }
+}
+.addArtitle{
+  text-align: center;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+}
+.addBook{
+  width: 100%;
+  padding-left: 30px;
+}
+.addBook-box{
+  text-align: center;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;  
+  .addBook-inp{
+    border-radius: 5px;
+    background: rgb(55,55,55);
+    text-align: center;
+    padding: 0 6px;
+  }
+  input{
+    background: none;
+    border: none;
+    height: 25px;
+    color: rgb(222,222,222);
+    outline: none;
   }
 }
 </style>
 <template>
   <div class="container">
     <main>
-      <section class="menu">
+      <section class="menu" @click="isAddBookBox = false">
         <div class="menu-box">
           <div class="menu-item" :class="item.type ? 'menu-itemEd':''"
             v-for="(item, index) in menuData" :key="index" @click="navBook(item)">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-xiewenzhang"></use>
+              <use xlink:href="#icon-benzi"></use>
             </svg>
-            <div class="menu-item-value">{{item.name}}</div>
+            <div class="menu-item-value" >{{item.bookName}}</div>
           </div>
-          <div class="menu-item">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-xiewenzhang"></use>
+           <div class="menu-item addBook-box" v-if="isAddBookBox" @click.stop>
+              <div class="addBook-inp">
+                <input type="text" v-model="bookName" placeholder="最好不超过10个字" @keyup.enter="KeyUpenter">  
+              </div>              
+          </div>
+          <div class="menu-item" @click.stop="addBook">
+            <div class="addBook">
+              <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-jiahao"></use>
             </svg>
-            <div class="menu-item-value">点击添加本子+</div>
+            添加
+            </div>
           </div>
         </div>
       </section>
@@ -81,15 +117,12 @@ main{
         <div class="book-box">
           <div
             @click="addArtitle"
-            class="book-item">
-            <div class="item-month">+</div>
-            <div class="item-details">
-              <div class="item-detailsTime">
-                2019年6月21日 23:22
-              </div>
-              <div class="item-detailsContent">
-                增加文章
-              </div>
+            class="book-item">           
+            <div class="addArtitle">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-xiewenzhang"></use>
+              </svg>
+              写文章
             </div>
           </div>
           <div
@@ -113,34 +146,53 @@ main{
   </div>
 </template>
 <script>
+import { addBook, getBookList } from '@/api/getData'
+
 export default {
   data () {
     return {
-      menuData: [
-        {
-          name:'check-me 日记',
-          type: true
-        },
-        {
-          name:'nodeJs学习笔记',
-          type: false
-        },
-        {
-          name:'随记住',
-          type: false
-        },
-        {
-          name:'微信小程序开发笔记',
-          type: false
-        },
-        {
-          name:'check-me 日记',
-          type: false
-        },
-      ]
+      menuData: [],
+      isAddBookBox: false,
+      bookName: ''
     }
   },
+  created() {
+    this.getBookListHandle()
+  },
   methods: {
+    async addBookHandle() {
+      try{
+        const res = await addBook({
+          userId: this.$store.state.userId,
+          bookName: this.bookName
+        })
+        if(res.data.code === 200) {
+          this.isAddBookBox = false
+          this.getBookListHandle()
+        } else {
+          console.log('失败')
+        }
+      } catch(err) {
+        console.log(err)
+         this.isAddBookBox = false
+      }            
+    },
+    async getBookListHandle() {
+      try{
+        const res = await getBookList({
+          userId: this.$store.state.userId
+        })
+        if(res.data.code === 200) {
+          res.data.data.forEach((item, index) => {
+            item.type = false
+          })
+          this.menuData = res.data.data
+        }
+      } catch(err) {
+        console.log(err)
+      }            
+    },
+    // 路由跳转
     readArtitle() {
       this.$router.push({
         path: '/main/article/readArticle'
@@ -157,7 +209,17 @@ export default {
         element.type = false
       }) 
       val.type = val.type ? false : true      
+    },
+    // 添加本子
+    addBook() {
+      //this.addBookHandle()
+      this.isAddBookBox = true
+    },
+    // 点击确认怎家
+    KeyUpenter() {
+      this.addBookHandle()
     }
   }
 }
 </script>
+ 

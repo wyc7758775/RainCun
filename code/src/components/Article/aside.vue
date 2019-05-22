@@ -32,10 +32,12 @@ main{
   border-right: 1px solid rgb(191, 191, 191);
   .book-item{
     display: flex;
+    justify-content: space-between;
+    width: 210px;
     transition: border .3s;
     cursor: pointer;
     .item-month{
-      width: 50px;
+      width: 28px!important;
       font-size: 14px;
       padding: 10px 5px;
     }
@@ -47,6 +49,8 @@ main{
         font-size: 15px;
       }
       .item-detailsContent{
+        width: 150px;
+        overflow: hidden;
         font-size: 14px;
         margin-top: 5px;
       }
@@ -126,17 +130,17 @@ main{
             </div>
           </div>
           <div
-            @click="readArtitle"
+            @click="readArtitle(item)"
             class="book-item" 
-            v-for="(item, index) in 13" 
+            v-for="(item, index) in arTitleMenu" 
             :key="index">
             <div class="item-month">2月</div>
             <div class="item-details">
               <div class="item-detailsTime">
-                2019年4月21日 23:22
+                {{item.createAt}}
               </div>
               <div class="item-detailsContent">
-                按道理昨天就应该放假了。但是去融水
+                {{ item.content }}
               </div>
             </div>
           </div>
@@ -146,17 +150,20 @@ main{
   </div>
 </template>
 <script>
-import { addBook, getBookList } from '@/api/getData'
+import { addBook, getBookList, getConentList } from '@/api/getData'
 
 export default {
   data () {
     return {
       menuData: [],
+      arTitleMenu: [],
       isAddBookBox: false,
       bookName: ''
     }
   },
   created() {
+    console.log('*********我要查看书本列表*********')
+    console.log(this.$store.state.userId)
     this.getBookListHandle()
   },
   methods: {
@@ -186,14 +193,33 @@ export default {
           res.data.data.forEach((item, index) => {
             item.type = false
           })
+          console.log(res)
+          res.data.data[0].type = true
+          this.$store.commit('ModCurrentBookId', res.data.data[0]._id)
+          this.getConentListAuto()
           this.menuData = res.data.data
         }
       } catch(err) {
         console.log(err)
       }            
     },
+    async getConentListAuto() {
+      try{
+        const res = await getConentList({
+          bookId: this.$store.state.currentBookId
+        })
+        if(res.data.code === 200) {
+          this.arTitleMenu = res.data.data
+        }
+        console.log(res)
+      } catch(err) {
+        console.log(err)
+      }            
+    },
     // 路由跳转
-    readArtitle() {
+    readArtitle(val) {
+      console.log(val)
+      this.$store.commit('showCurrentContent', val.content)
       this.$router.push({
         path: '/main/article/readArticle'
       })
@@ -204,7 +230,9 @@ export default {
       })
     },
     navBook(val) {
-      console.log(val)      
+      console.log(val._id)
+      this.$store.commit('ModCurrentBookId', val._id)
+      this.getConentListAuto()
       this.menuData.forEach(element => {
         element.type = false
       }) 

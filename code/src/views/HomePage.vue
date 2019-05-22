@@ -298,6 +298,7 @@ export default {
             this.$router.push({
               path: '/main'
             })
+            this.getBookListHandle(loginInfo.data.data.userId)
           } else {
             console.log('密码错误')
             this.ifPop = true

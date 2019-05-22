@@ -8,7 +8,10 @@ import * as mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  userId: ''
+  userId: '',
+  bookMenu: [],
+  currentBookId: '', // 当前选择的书本的ID
+  currentContent: '' // 当前选择的内容
 }
 
 // 注册各大模块

@@ -28,6 +28,9 @@ export default {
     vAside,
     vContent
   },
+  created() {
+    console.log('老子要看文章')
+  },
   methods: {
     readArtitle() {
       // this.isHidden = true

@@ -23,10 +23,10 @@ router.post('/addBook', async(ctx) => {
 
 router.post('/getBookList', async(ctx) => {
   const response = ctx.request.body
-  console.log(response)
   const arTitle = mongoose.model('arTitle')
   let code, msg
   let data = await  arTitle.find({userId: response.userId })
+  console.log(data)
   if(data) {
     code = 200,
     msg = '成功'
@@ -36,4 +36,55 @@ router.post('/getBookList', async(ctx) => {
   }
 })
 
+router.post('/addContent', async(ctx) => {
+  const response = ctx.request.body
+  console.log(response)
+  const content = mongoose.model('content')
+  let newAddContent = new content(response)
+  let code, msg  
+  await newAddContent.save().then(() => {
+    code = 200
+    msg = '添加成功'
+  }).catch(error => {
+    console.log(error)
+    code = 500
+    msg = error
+  })
+  ctx.body = {
+    code, msg
+  }
+})
+
+router.post('/getContentList', async(ctx) => {
+  const response = ctx.request.body
+  console.log(response.bookId)
+  const content = mongoose.model('content')
+  let code, msg
+  let data = await  content.find({"bookId": response.bookId })
+  console.log(data)
+  if(data) {
+    code = 200,
+    msg = '成功'
+  }
+  ctx.body = {
+    code, msg, data
+  }
+})
+
+router.post('/delectContentById', async(ctx) => {
+  const response = ctx.request.body
+  const content = mongoose.model('content')
+  let code, msg
+  let data = await content.remove({
+    contentId: response.contentId
+  })
+  console.log(data)
+  if(data) {
+    code = 200,
+    msg = '成功'
+  }
+  ctx.body = {
+    code, msg, data
+  }
+})
 module.exports = router

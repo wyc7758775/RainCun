@@ -7,7 +7,8 @@ mongoose.Promise =  global.Promise
 
 exports.connect = () => {
   console.log('我要开始连接数据库了')
-  let maxCononectTimes = 0
+  console.log(Date.now())
+  let maxConnectTimes = 0
   // 连接数据库
   //mongoose.connect(db)
 

@@ -7,6 +7,7 @@ import Article from './views/Article.vue'
 import LeaveMsg from './views/leaveMsg.vue'
 import ReadArticle from './components/Article/content.vue'
 import WriteArticle from './components/Article/writeArticle.vue'
+import ShowContent from './views/showContent.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -50,6 +51,11 @@ export default new Router({
           name: 'leaveMsg',
           component: LeaveMsg
           // component: () => import('./views/leaveMsg.vue')  // 这个用不了动态加载 router-link :to="item.path" 是失去效果的
+        },
+        {
+          path: 'showContent',
+          name: 'showContent',
+          component: ShowContent
         }
       ]
     },    

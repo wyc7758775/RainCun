@@ -95,8 +95,11 @@ main{
     <main>
       <section class="menu" @click="isAddBookBox = false">
         <div class="menu-box">
-          <div class="menu-item" :class="item.type ? 'menu-itemEd':''"
-            v-for="(item, index) in menuData" :key="index" @click="navBook(item)">
+          <div 
+            class="menu-item" :class="item.type ? 'menu-itemEd':''"
+            v-for="(item, index) in menuData" 
+            :key="index" 
+            @click="navBook(item)">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-benzi"></use>
             </svg>
@@ -134,10 +137,10 @@ main{
             class="book-item" 
             v-for="(item, index) in arTitleMenu" 
             :key="index">
-            <div class="item-month">2月</div>
+            <div class="item-month">{{ item.createAtMonth }}月</div>
             <div class="item-details">
               <div class="item-detailsTime">
-                {{item.createAt}}
+                {{item.title}}
               </div>
               <div class="item-detailsContent">
                 {{ item.content }}
@@ -210,6 +213,11 @@ export default {
         })
         if(res.data.code === 200) {
           this.arTitleMenu = res.data.data
+          this.arTitleMenu.forEach(item => {
+            let time = new Date(this.arTitleMenu[0].createAt).getMonth() + 1
+            item.createAtMonth = time
+          })
+          
         }
         console.log(res)
       } catch(err) {
@@ -220,6 +228,7 @@ export default {
     readArtitle(val) {
       console.log(val)
       this.$store.commit('showCurrentContent', val.content)
+      this.$store.commit('modCurrentContentID', val._id)
       this.$router.push({
         path: '/main/article/readArticle'
       })

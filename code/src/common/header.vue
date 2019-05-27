@@ -124,6 +124,11 @@ export default {
     return {
       menue: [
         {
+          iconName:'#icon-xiewenzhang',
+          name: '首页',
+          label: '/main/showContent'
+        },
+        {
           iconName: '#icon-xiewenzhang',
           name: '文章',
           label: '/main/article'

@@ -11,7 +11,8 @@ const state = {
   userId: '',
   bookMenu: [],
   currentBookId: '', // 当前选择的书本的ID
-  currentContent: '' // 当前选择的内容
+  currentContent: '', // 当前选择的内容
+  currentContentId: '' // 当前选择的文章的ID
 }
 
 // 注册各大模块

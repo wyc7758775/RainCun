@@ -46,8 +46,9 @@ export default {
     },
     // api End
     saveArtitle(val, render){
-      console.log('我要保存')
-      this.addContentHandle(render ,title)
+      let str = render 
+      let title = str.match(/<\/a>(\S*)<\/h1>/)[1]
+      this.addContentHandle(val ,title)
     },
     test() {
       console.log(this.value)

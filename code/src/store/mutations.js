@@ -11,5 +11,9 @@ export const ModCurrentBookId = (state, data) => {
 }
 // currentContent
 export const showCurrentContent = (state, data) => {
-  state.currentContent =  data
+  state.currentContent = data
+}
+// currentContentId
+export const modCurrentContentID = (state, data) => {
+  state.currentContentId = data
 }

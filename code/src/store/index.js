@@ -12,7 +12,13 @@ const state = {
   bookMenu: [],
   currentBookId: '', // 当前选择的书本的ID
   currentContent: '', // 当前选择的内容
-  currentContentId: '' // 当前选择的文章的ID
+  currentContentId: '', // 当前选择的文章的ID
+  dialogShow: false, // 没办法了，只能用这个了来作为弹窗的全局设置了
+  inpuContent: {
+    type: '',
+    content: '确定要删除这篇文章吗',
+    title: '警告'
+  }
 }
 
 // 注册各大模块

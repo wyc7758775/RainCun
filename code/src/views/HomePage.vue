@@ -296,7 +296,7 @@ export default {
           if(loginInfo.data.msg) {
             this.$store.commit('getUserId', loginInfo.data.data.userId) 
             this.$router.push({
-              path: '/main'
+              path: '/main/showContent'
             })
             this.getBookListHandle(loginInfo.data.data.userId)
           } else {

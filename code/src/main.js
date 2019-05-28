@@ -7,7 +7,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
-
 // require styles
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper)

@@ -17,3 +17,11 @@ export const showCurrentContent = (state, data) => {
 export const modCurrentContentID = (state, data) => {
   state.currentContentId = data
 }
+// dialogShow
+export const modDialogShow = (state, data) => {
+  state.dialogShow = data
+}
+// inpuContent
+export const getInpuContent = (state, data) => {
+  state.inpuContent = data
+}

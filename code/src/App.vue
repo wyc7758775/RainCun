@@ -1,9 +1,3 @@
-<template>
-  <div id="app">
-    <router-view/>
-  </div>
-</template>
-
 <style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -36,3 +30,29 @@ a{
   overflow: hidden;
 }
 </style>
+
+<template>
+  <div id="app">
+    <router-view/>
+     <vsDialog v-show="this.$store.state.dialogShow"></vsDialog>
+  </div>
+</template>
+<script>
+import vsDialog from './common/dialog'
+export default {
+  data () {
+    return {
+      dialogShow : true
+    }
+  },
+  created() {
+  },
+  methods: {
+    
+  },
+  components: {
+    vsDialog
+  },
+}
+</script>
+

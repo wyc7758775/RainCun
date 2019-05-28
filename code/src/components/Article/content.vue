@@ -79,6 +79,7 @@
 </template>
 <script>
 import { releaseContent, updateContent, delectContent } from '@/api/getData'
+import { bus } from '../../main.js'
 export default {
   data() {
     return {
@@ -99,8 +100,11 @@ export default {
   },
   created() {
   },
+  components: {
+    
+  },
   methods: {
-    // api Start
+    // api Start 1. 更新文章 2.删除文章 3.发布文章
     async updateContentUrl(content, title) {
       try {
         const res = await updateContent ({
@@ -113,19 +117,33 @@ export default {
         console.log(err)
       }            
     },
-     async updateContentUrl() {
+     async DelecteContentUrl() {
       try {
         const res = await delectContent ({
           contentId: this.$store.state.currentContentId
         })
         console.log(res)
+        if(res.data.code === 200) {
+          this.$store.commit('modDialogShow', false)
+        }
       } catch(err) {
         console.log(err)
-      }            
+      }          
+    },
+    async releaseContentUrl() {
+      try {
+        const res = await releaseContent ({
+          contentId: this.$store.state.currentContentId
+        })
+        console.log(res)
+      } catch(err) {
+        console.log(err)
+      }          
     },
     // api ENd
+    // 发布文章
     releaseContent() {
-      
+      this.releaseContentUrl()
     },
     // 更新文章
     upadataContent(val, render){
@@ -133,8 +151,17 @@ export default {
       let title = str.match(/<\/a>(\S*)<\/h1>/)[1]
       this.updateContentUrl(val ,title)
     },
+    // 删除文章
     DelecteContent() {
-      this.updateContentUrl()
+      console.log('*******打开弹窗********')
+      this.$store.commit('modDialogShow', true)
+      let inputContent = {
+        type: '删除文章',
+        content: '确定要删除这篇文章吗？(此操作不可逆)',
+        title: '警告'
+      }
+      this.$store.commit('getInpuContent', inputContent)
+      //this.DelecteContentUrl()
     }
   }
 }

@@ -15,7 +15,8 @@ const contentSchema = new Schema({
   bookId: {  type: String, required:true,  },
   content: String,
   createAt: { type: Date, default: new Date() },
-  title: {  type: String, required:true,  }
+  title: {  type: String, required: true },
+  isRelease: {  type: Boolean,  default: false },  
 })
 
 // 发布模型

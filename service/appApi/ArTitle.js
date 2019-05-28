@@ -106,4 +106,21 @@ router.post('/updateContent', async(ctx) => {
     code, msg, data
   }
 })
+// 发布文章
+router.post('/releaseContent', async(ctx) => {
+  const response = ctx.request.body
+  console.log(response)
+  const content = mongoose.model('content')
+  let code, msg
+  let data = await content.update({"_id": response.contentId}, {
+    "isRelease": true
+  })
+  if(data) {
+    code = 200,
+    msg = '成功'
+  }
+  ctx.body = {
+    code, msg, data
+  }
+})
 module.exports = router

@@ -33,7 +33,7 @@ main{
           z-index: 1111;
           margin: 0 auto;
           transition: width .5s;
-          background: transparent;
+          background: ansparent;
           height: 100%;
           position: absolute;
           border-bottom: 2px solid  rgb(64, 71, 86);

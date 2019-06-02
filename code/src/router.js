@@ -8,10 +8,11 @@ import LeaveMsg from './views/leaveMsg.vue'
 import ReadArticle from './components/Article/content.vue'
 import WriteArticle from './components/Article/writeArticle.vue'
 import ShowContent from './views/showContent.vue'
+import Gallery  from './views/gallery.vue'
 Vue.use(Router)
 
 export default new Router({
-  //mode: 'history',  // 这个模式什么情况，如果点击强制刷会出错 Unexpected token <
+  //mode: 'history',  // 这个模式什么情况，如果点击强制刷会出错 Unexpected token < 说是需要后台来配合。不懂，以后有新需要再研究
   base: process.env.BASE_URL,
   routes: [
     {
@@ -56,7 +57,13 @@ export default new Router({
           path: 'showContent',
           name: 'showContent',
           component: ShowContent
-        }
+        },
+        // Gallery
+        {
+          path: 'gallery',
+          name: 'gallery',
+          component: Gallery
+        },
       ]
     },    
   ]

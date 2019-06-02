@@ -139,7 +139,7 @@ export default {
         },{
           iconName: '#icon-xiangce',
           name: '相册',
-          label: '/main/about'
+          label: '/main/gallery'
         },{
           iconName: '#icon-iconzhengli-',
           name: '关于我',

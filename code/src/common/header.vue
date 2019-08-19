@@ -124,7 +124,8 @@ export default {
     return {
       menue: [
         {
-          iconName:'#icon-shouye',
+           iconName:'#icon-shouye',
+          //iconName: '#iconicon3',
           name: '首页',
           label: '/main/showContent'
         },

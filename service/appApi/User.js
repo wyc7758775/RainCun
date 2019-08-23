@@ -14,11 +14,17 @@ router.post('/login', async(ctx) => {
       let newUser = new User()
       await newUser.comparePassword(loginUser.password, result.password)
       .then( (isMatch) => {
-        data = {
-          userId: result.id
+        console.log('******验证码密码*******')
+        console.log(isMatch)
+        if(isMatch){
+          data = {
+            userId: result.id
+          }
+          code = 200
+        } else {
+          code = 201
+          msg = '输入的密码错啦'
         }
-        code = 200
-        msg = isMatch
       })
       .catch(error => {
         console.log(error)
@@ -54,29 +60,5 @@ router.post('/register', async(ctx) => {
     code, msg
   }
 })
-
-// 测试
-// router.post('/addLeaveMsg', async(ctx) => {
-//   const leaveMsgData = ctx.request.body
-//   const LeaveMsg = mongoose.model('leaveMsg')  
-//   let testData = {
-//     nickName: '村小弟',
-//     content: '你是我大哥，以后你说什么就是什么'
-//   }
-//   console.log(testData)
-//   let code, msg
-//   let newLeaveMsg = new LeaveMsg(testData)
-//   await newLeaveMsg.save().then(() => {
-//     code = 200
-//     msg = '添加成功'
-//   }).catch(error => {
-//     console.log(error)
-//     code = 500
-//     msg = error
-//   })
-//   ctx.body = {
-//     code, msg
-//   }
-// })
 
 module.exports = router

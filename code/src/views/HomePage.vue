@@ -270,7 +270,7 @@ export default {
       openLoading: true, // 是否已经点击了登录按钮
       ifPop: false,
       formUser: {
-        username: 'wyc7758775',
+        username: 'wyc7758775s',
         password: '123456'
       }
     }
@@ -292,19 +292,17 @@ export default {
       try {
         const loginInfo = await login(this.formUser)
         console.log(loginInfo)
-        if(loginInfo.data.code === 200) {    
-          if(loginInfo.data.msg) {
-            this.$store.commit('getUserId', loginInfo.data.data.userId) 
-            this.$router.push({
-              path: '/main/showContent'
-            })
-            this.getBookListHandle(loginInfo.data.data.userId)
-          } else {
-            console.log('密码错误')
-            this.ifPop = true
-            this.openLoading = true
-          }          
-        } else {
+        if(loginInfo.data.code == 200) {
+          this.$store.commit('getUserId', loginInfo.data.data.userId) 
+          this.$router.push({
+            path: '/main/showContent'
+          })
+          this.getBookListHandle(loginInfo.data.data.userId)
+        } else if(loginInfo.data.code == 201) {
+          console.log(loginInfo.data.msg)
+          this.openLoading = true
+        } else if (loginInfo.data.code == 400) {
+          this.ifPop = true
           this.openLoading = true
           console.log('用户不存在')
         }

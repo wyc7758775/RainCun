@@ -6,7 +6,8 @@
   z-index: 999;
   top: 0;
   left: 0;
-  background: rgba(11,11,11,.5);
+  background: rgba(11,11,11,.7);
+  filter: blur(200px);
 }
 .content{
   background: white;
@@ -125,8 +126,8 @@ export default {
     },
     register() {
       let formUsre = {
-        username: 'moliy520',
-        password: '123456'
+        userName: 'moliy5200',
+        password: '42235'
       }
       this.getRegisterData(formUsre)
     }

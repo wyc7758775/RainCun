@@ -114,7 +114,7 @@ main{
           </div>
           <div class="porefile-img">
             <div class="porefile-img-box">
-              <img src="https://img.3dmgame.com/uploads/images/news/20190312/1552379800_722462.png" alt="帅哥">
+              <img src="" alt="">
             </div>
             <div style="color:#e2c;margin-top:6px">主攻WEB前端</div>
           </div>

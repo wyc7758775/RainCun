@@ -18,11 +18,11 @@ exports.connect = () => {
 　　}else{
 　　　　console.log('Connection success!')
 　　}
-})
+  })
 
 
-return  new Promise((resolve,reject) => {
-  //把所有连接放到这里
+  return  new Promise((resolve,reject) => {
+    //把所有连接放到这里
       
       //增加数据库监听事件
       mongoose.connection.on('disconnected', () => {
@@ -53,7 +53,6 @@ return  new Promise((resolve,reject) => {
           console.log('MongoDB connected successfully') 
           resolve()   
       })
-
   })
 
 }

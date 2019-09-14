@@ -21,3 +21,9 @@ export const releaseContent = data => upInitUrl('/arTitle/releaseContent', data,
 export const updateContent = data => upInitUrl('/arTitle/updateContent', data, 'urlencoded')
 // 删除文章
 export const delectContent = data => upInitUrl('/arTitle/delectContentById', data, 'urlencoded')
+
+// 关于我
+export const aboutMe = {
+  addAboutMe: data => upInitUrl('/about/addAboutMe', data, 'urlencoded'),
+  getAboutMe: data => upInitUrl('/about/getAboutMe', data, 'urlencoded')
+}

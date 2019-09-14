@@ -68,7 +68,7 @@
 }
 </style>
 <template>
-  <div class="container" v-if="faterName">
+  <div class="container" v-if="$store.state.ifPop">
     <div class="screen">      
     </div>
     <main>
@@ -83,7 +83,7 @@
         </div>
         <div class="content-btn">          
           <div class="content-btn-confirm item-btn" @click="register">确定</div>
-          <div class="content-btn-false item-btn" @click="faterName = false;checkType = true">取消</div>
+          <div class="content-btn-false item-btn" @click="cancle">取消</div>
         </div>
       </section>
     </main>
@@ -106,7 +106,6 @@ export default {
     'faterName'
   ],
   created() {
-    console.log(this.faterName)
   },
   methods: {
     async getRegisterData (formUsre) {
@@ -115,7 +114,7 @@ export default {
         console.log(registerInfo)
         if(registerInfo.data.code === 200){
           this.$router.push({
-            path: '/main'
+            path: '/main/showContent'
           })
         } else {
           console.log('注册失败')
@@ -125,11 +124,13 @@ export default {
       }
     },
     register() {
-      let formUsre = {
-        userName: 'moliy5200',
-        password: '42235'
-      }
-      this.getRegisterData(formUsre)
+      console.log(this.faterName)
+      this.getRegisterData(this.faterName)
+    },
+    // 取消
+    cancle() {
+      this.$store.commit('getIfPop', false)
+      this.checkType = true
     }
   }
 }

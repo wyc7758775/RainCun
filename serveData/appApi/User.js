@@ -1,12 +1,60 @@
 const Router = require('koa-router')
+const mongoose = require('mongoose')
 let router = new Router()
 
-router.get('/', async(ctx) => {
-  console.log(ctx)
-  ctx.body = '这是我的用户操作首页啊'
+router.post('/login', async(ctx) => {
+  let parms = {}
+  let loginUser = ctx.request.body
+  let userName = loginUser.userName
+  let password = loginUser.password
+
+  const User = mongoose.model('User')
+  await User.findOne({userName: userName}).exec().then(async(result) => {
+    console.log(result)
+    if(result) {
+      // 账号存在就对比密码
+      let newUser = new User() // 因为是实例方法，所以要new出方法,才能调用
+      await newUser.comparePassword(password, result.password)
+      .then( (isMath) => {
+        if(isMath) {
+          parms = {
+            code : 200,
+            msg : '登录成功',
+            data: result
+          }
+        }else {
+          parms = {
+            code : 500,
+            msg : '密码错误哦，大哥'
+          }
+        }
+      })
+    } else {
+      parms = {
+        code: 500,
+        msg: '账号不存在',
+      }
+    }
+    console.log('******摇滚*****')
+  })
+  ctx.body = parms
 })
-router.get('/register', async(ctx) => {
-  ctx.body = '我要开始i 注册了o'
+router.post('/register', async(ctx) => {
+  const User = mongoose.model('User')
+  let newUser = new User(ctx.request.body)
+  let parms = {}
+  await newUser.save().then(() => {
+    parms = {
+      code: 200,
+      message: '注册成功'
+    }
+  }).catch(error => {
+    parms = {
+      code: 500,
+      message: error
+    }
+  })
+  ctx.body = parms
 })
 
 

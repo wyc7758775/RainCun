@@ -163,6 +163,10 @@
   cursor: pointer;
   text-align: center;
 }
+.errorBox{
+  font-size: .8rem;
+  color: white;
+}
 </style>
 <template>
   <div>
@@ -185,10 +189,17 @@
             <div v-else class="loging"> 登录中.... </div>
             <div class="pre-form" :class="ifTest ? 'pre-form-animation' : ''">
               <div class="pre-form-inp">
-                <input type="text" v-model="formUser.username" placeholder="用户名，没有会自动注册哦">
+                <input type="text" v-model="formUser.userName" placeholder="用户名，没有会自动注册哦">
+                <div class="errorBox">
+                  {{ checkUser.userNameErrorMsg }}
+                </div>
               </div>
+              
               <div class="pre-form-inp">
                 <input type="password" v-model="formUser.password" placeholder="密码">
+                <div class="errorBox">
+                  {{ checkUser.passwordErrorMsg }}
+                </div>
               </div>
             </div>
           </div>
@@ -217,12 +228,11 @@
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
-    <popUp  v-bind:faterName="ifPop"></popUp>
+    <popUp  v-bind:faterName="formUser"></popUp>
   </div>
 </template>
 <script>
 import axios from 'axios'
-
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import vResume from '../components/HomePage/resume'
@@ -268,10 +278,13 @@ export default {
       },
       ifTest: false,
       openLoading: true, // 是否已经点击了登录按钮
-      ifPop: false,
       formUser: {
-        username: 'wyc7758775s',
+        userName: 'moliy520',
         password: '123456'
+      },
+      checkUser: {
+        userNameErrorMsg: '',
+        passwordErrorMsg: ''
       }
     }
   },
@@ -287,28 +300,32 @@ export default {
     vTexiao,
     popUp
   },
+  created() {
+  },
   methods: {
     async getLoginData () {
       try {
-        const loginInfo = await login(this.formUser)
-        console.log(loginInfo)
-        if(loginInfo.data.code == 200) {
-          this.$store.commit('getUserId', loginInfo.data.data.userId) 
+        const resData = await login(this.formUser)
+        console.log(resData)
+        if(resData.data.code == 200) {
+          this.$store.commit('getUserId', resData.data.data._id) 
           this.$router.push({
-            path: '/main/showContent'
+            path: '/main/about'
           })
-          this.getBookListHandle(loginInfo.data.data.userId)
-        } else if(loginInfo.data.code == 201) {
-          console.log(loginInfo.data.msg)
-          this.openLoading = true
-        } else if (loginInfo.data.code == 400) {
-          this.ifPop = true
-          this.openLoading = true
-          console.log('用户不存在')
+        } else if(resData.data.code === 500) {
+            if( resData.data.msg === '账号不存在') {
+              this.$store.commit('getIfPop', true)
+              this.openLoading = true
+          }
+          else if( resData.data.msg === '密码错误哦，大哥') {
+            alert('密码错误')
+            this.openLoading = true
+          }
         }
       } catch (error) {
         this.openLoading = true
-        console.log('注册失败')
+        console.log(error)
+        alert('练习阿村哥')
       }
     },
     async getRegisterData () {
@@ -322,12 +339,30 @@ export default {
       }
     },
     navMain () {
-      console.log('开始消失')
       this.ifTest = true
     },
-    login () {         
-      this.getLoginData()
-      this.openLoading = false
+    login () {
+      if(this.checkFrom()) {
+        this.getLoginData()
+        this.openLoading = false
+      }
+    },
+    checkFrom() {
+      let isOk = true
+      if(this.formUser.userName.length < 5) {
+        this.checkUser.userNameErrorMsg = '用户名不能小于5位'
+        isOk = false
+      } else {
+        this.checkUser.userNameErrorMsg = ''
+      }
+      if(this.formUser.password.length < 6) {
+        this.checkUser.passwordErrorMsg = '密码不能少于6位'
+        isOk = false
+      } else {
+        this.checkUser.passwordErrorMsg = ''
+      }
+
+      return isOk
     }
   }
 }

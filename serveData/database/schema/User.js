@@ -15,7 +15,6 @@ const userSchema = new Schema({
 
 // 每次创建的时候都执行之一 pre
 userSchema.pre('save', function(next) {
-  console.log(this)
   bcrypt.genSalt( SALT_WORK_FACTOR, (err, salt) => {
     if(err) return next(err)
     bcrypt.hash(this.password, salt, (err, hash) => {
@@ -25,5 +24,20 @@ userSchema.pre('save', function(next) {
     })
   })
 })
+
+// 密码对比
+userSchema.methods = {
+  // 密码比对的方法
+  comparePassword: (_password, password) => {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare( _password, password, (err, isMatch) => {
+        console.log(isMatch)
+        if(!err) resolve(isMatch)
+        else reject(err)
+      })
+    })
+  }
+}
+
 // 发布模型
 mongoose.model('User', userSchema)

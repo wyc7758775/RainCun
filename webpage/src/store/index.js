@@ -18,7 +18,9 @@ const state = {
     type: '',
     content: '确定要删除这篇文章吗',
     title: '警告'
-  }
+  },
+  ifPop: false,
+  aboutValue: {}, // 关于我的内容变更
 }
 
 // 注册各大模块

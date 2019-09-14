@@ -10,10 +10,12 @@ app.use(bodyParser());
 // 路由控制
 const Router = require('koa-router')
 let user = require('./appApi/User.js')
+let about = require('./appApi/about.js')
 
 
 let router = new Router()
 router.use('/user', user.routes())
+router.use('/about', about.routes())
 app.use(router.routes())
 app.use(router.allowedMethods())
 
@@ -31,5 +33,5 @@ app.use(async(ctx)=>{
 })
 
 app.listen(3100,()=>{
-  console.log('[Server] starting at port 3000')
+  console.log('[Server] starting at port 3100')
 })

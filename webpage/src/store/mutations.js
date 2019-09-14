@@ -25,3 +25,12 @@ export const modDialogShow = (state, data) => {
 export const getInpuContent = (state, data) => {
   state.inpuContent = data
 }
+
+// ifPop
+export const getIfPop = (state, data) => {
+  state.ifPop = data
+}
+// aboutValue
+export const ModAboutValue = (state, data) => {
+  state.aboutValue = data
+}

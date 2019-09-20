@@ -21,6 +21,8 @@ const state = {
   },
   ifPop: false,
   aboutValue: {}, // 关于我的内容变更
+  arTitleMenu: [], // 文章列表
+  newConetentId: '' // 新鲜出炉的文章ID
 }
 
 // 注册各大模块

@@ -5,7 +5,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(100, 100, 100,.5);
+  background: rgba(10, 10, 10,.8);
   z-index: 9999;
 }
 .dialog{
@@ -19,7 +19,7 @@
   margin-top: -100px;
   margin-left: -170px;
   padding: 20px 10px;
-  animation: fadeAnimation 1s alternate forwards;
+  animation: fadeAnimation .3s alternate forwards;
 }
 @keyframes fadeAnimation {
       from { opacity: 0; margin-top: -200px}

@@ -1,6 +1,7 @@
 import { upInitUrl } from '@/config/axios'
 
 export const login = data => upInitUrl('/user/login', data, 'urlencoded')
+export const getUsers = data => upInitUrl('/user/getUers', data, 'urlencoded')
 
 export const register = data => upInitUrl('/user/register', data, 'urlencoded')
 
@@ -26,4 +27,10 @@ export const delectContent = data => upInitUrl('/arTitle/delectContentById', dat
 export const aboutMe = {
   addAboutMe: data => upInitUrl('/about/addAboutMe', data, 'urlencoded'),
   getAboutMe: data => upInitUrl('/about/getAboutMe', data, 'urlencoded')
+}
+
+// 首页
+export const homePage = {
+  getContent: data => upInitUrl('', data, 'urlencoded'),
+  getUersLis: data => upInitUrl('', data, 'urlencoded')
 }

@@ -34,3 +34,11 @@ export const getIfPop = (state, data) => {
 export const ModAboutValue = (state, data) => {
   state.aboutValue = data
 }
+// arTitleMenu
+export const UpdataArTitleMenu = (state, data) => {
+  state.arTitleMenu = data
+}
+// newConetentId
+export const getNewCOntentId = (state, data) => {
+  state.newConetentId = data
+}

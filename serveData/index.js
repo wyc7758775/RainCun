@@ -11,11 +11,12 @@ app.use(bodyParser());
 const Router = require('koa-router')
 let user = require('./appApi/User.js')
 let about = require('./appApi/about.js')
-
+let artTitle = require('./appApi/ArTitle.js')
 
 let router = new Router()
 router.use('/user', user.routes())
 router.use('/about', about.routes())
+router.use('/arTitle', artTitle.routes())
 app.use(router.routes())
 app.use(router.allowedMethods())
 

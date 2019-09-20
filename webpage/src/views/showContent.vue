@@ -170,12 +170,12 @@ aside{
         </section>
         <section>
           <div class="content-box">
-            <div class="content-item" v-for="(item, index) in 12" :key="index">
+            <div class="content-item" v-for="(item, index) in contentList" :key="index">
               <div class="item-box">
                 <div class="item-content">
-                  <div class="item-content-title">{{ title }}</div>
+                  <div class="item-content-title">{{ item.title }}</div>
                   <div class="item-content-preview">
-                    {{ preContent }}
+                    {{ item.content }}
                   </div>
                 </div>
                 <div class="item-img">
@@ -218,13 +218,13 @@ aside{
         </section>
         <section class="friends">
           <div class="friends-title">都是小公举</div>
-          <div class="frirend-item" v-for="(item, index) in 8" :key="index">
+          <div class="frirend-item" v-for="(item, index) in users" :key="index">
             <div class="item-profile">
               <img src="https://upload.jianshu.io/users/upload_avatars/4790772/388e473c-fe2f-40e0-9301-e357ae8f1b41.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp">
             </div>
             <div class="item-preInfo">
               <div class="item-proInfo-name">
-                吴雨村
+               {{ item.userName }} 
               </div>
               <div class="item-proInfo-vale">
                 <div>写了200篇文章</div>
@@ -242,6 +242,7 @@ aside{
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import vFooter from '../common/footer'
+import { getConentList, getUsers } from '@/api/getData'
 export default {
   data () {
     return {
@@ -267,6 +268,8 @@ export default {
           clickable: true
         }
       },
+      contentList: [],
+      users: []
     }
   },
   computed: {  
@@ -278,6 +281,36 @@ export default {
     swiper,
     swiperSlide,
     vFooter
+  },
+  created() {
+    this.getConentListAuto()
+    this.apiGetUsers()
+  },
+  methods: {
+    // api start
+    async getConentListAuto() {
+      try{
+        const res = await getConentList()
+        console.log(res)
+        if(res.data.code === 200) {
+          this.contentList = res.data.data
+        }
+      } catch(err) {
+        console.log(err)
+      }            
+    },
+    async apiGetUsers() {
+      try{
+        const res = await getUsers()
+        console.log(res)
+        if(res.data.code === 200) {
+          this.users = res.data.data
+        }
+      } catch(err) {
+        console.log(err)
+      }            
+    },
+    // api end
   }
 }
 </script>

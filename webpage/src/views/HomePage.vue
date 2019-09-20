@@ -309,6 +309,7 @@ export default {
         console.log(resData)
         if(resData.data.code == 200) {
           this.$store.commit('getUserId', resData.data.data._id) 
+          localStorage.setItem('getUserId', resData.data.data._id)
           this.$router.push({
             path: '/main/about'
           })

@@ -57,6 +57,22 @@ router.post('/register', async(ctx) => {
   ctx.body = parms
 })
 
+router.post('/getUers', async(ctx) => {
+  const User = mongoose.model('User')
+  let resData = await User.find()
+  console.log('**********获取用户列表************')
+  console.log(resData)
+  let parms = {}
+  if(resData) {
+    parms = {
+      code: 200,
+      msg: '成功',
+      data: resData
+    }
+  }
+  ctx.body = parms
+})
+
 
 
 module.exports = router

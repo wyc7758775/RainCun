@@ -46,6 +46,8 @@ export default {
     }
   },
   created() {
+    let getUserId = localStorage.getItem("getUserId")
+    this.$store.commit('getUserId', getUserId) 
   },
   methods: {
     

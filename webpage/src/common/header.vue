@@ -135,7 +135,7 @@ export default {
           label: '/main/article'
         },{
           iconName: '#icon-liuyan',
-          name: '留言',
+          name: '一言堂',
           label: '/main/leaveMsg'
         },{
           iconName: '#icon-xiangce',

@@ -1,6 +1,9 @@
 const Koa = require('koa')
 const app = new Koa()
 const mongoose = require('mongoose')
+// 加載靜態文件
+const static = require('koa-static')
+app.use(static(__dirname+'./www'))
 // 引入connect
 const { connect, initSchemas } = require('./database/init.js')
 
@@ -29,8 +32,9 @@ app.use(router.allowedMethods())
   initSchemas()
 })()
 
+let homePage = './www/index.html'
 app.use(async(ctx)=>{
-  ctx.body = '<h1>hello Koa2</h1>'
+  ctx.body = homePage
 })
 
 app.listen(3100,()=>{

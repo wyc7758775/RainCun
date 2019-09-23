@@ -209,15 +209,21 @@ main{
       </section>
       
     </main>
+     <v-footer></v-footer>
   </div>
 </template>
 <script>
+import vFooter from '../../common/footer'
+
 export default {
   name: 'LeaveMsg',
   data() {
     return {
       isEdite: true, // 自己的名言是否保留
     }
-  }
+  },
+  components: {
+    vFooter
+  },
 }
 </script>

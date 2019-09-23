@@ -8,7 +8,7 @@ if (process.env.NODE_ENV == 'development') { // 判断当前是开发环境还�
   baseUrl = '/api',
   baseImgPath = '/img/'
 } else {
-	baseUrl = 'http://localhost:3000/'
+	baseUrl = 'http://39.108.71.130:3100/'
   baseImgPath = '//elm.cangdu.org/img/'
 }
 

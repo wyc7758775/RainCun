@@ -32,7 +32,7 @@ module.exports = {
     proxy: {
       //配置跨域
       '/api': {
-          target: "http://localhost:3100/",
+          target: "http://39.108.71.130:3100/", // http://39.108.71.130:3100/ and http://localhost:3100/ 
           changOrigin:true,
           pathRewrite:{
               '^/api':'/'

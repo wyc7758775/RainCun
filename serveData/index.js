@@ -5,9 +5,6 @@ const mongoose = require('mongoose')
 const static = require('koa-static')
 const path = require('path')
 
-// 跨域
-const cors = require('koa2-cors')
-app.use(cors())
 // 引入connect
 const { connect, initSchemas } = require('./database/init.js')
 

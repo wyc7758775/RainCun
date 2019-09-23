@@ -29,15 +29,15 @@ module.exports = {
     // port: 8989
     port: 8181,// 端口号
     open: true, //配置自动启动浏览器
-    proxy: {
-      //配置跨域
-      '/api': {
-          target: "http://39.108.71.130:3100/", // http://39.108.71.130:3100/ and http://localhost:3100/ 
-          changOrigin:true,
-          pathRewrite:{
-              '^/api':'/'
-          }
-      }
-    }
+    // proxy: {
+    //   //配置跨域
+    //   '/api': {
+    //       target: "http://localhost:3100/",
+    //       changOrigin:true,
+    //       pathRewrite:{
+    //           '^/api':'/'
+    //       }
+    //   }
+    // }
   }
 }

@@ -4,6 +4,9 @@ const mongoose = require('mongoose')
 // 加載靜態文件
 const static = require('koa-static')
 const path = require('path')
+// 跨域
+const cors = require('koa2-cors')
+app.use(cors())
 
 // 引入connect
 const { connect, initSchemas } = require('./database/init.js')
@@ -28,7 +31,7 @@ app.use(router.allowedMethods())
 
 // 立即执行函数
 ;(async () => {
-  console.log('**********我要开始学习NODEJS啦********')
+  console.log('**********启动我的********')
   await connect()
   initSchemas()
 })()
@@ -36,10 +39,11 @@ app.use(router.allowedMethods())
 app.use(static(
   path.join(__dirname, './www')
 ))
-app.use(async(ctx)=>{
-  ctx.body = 'hello wuyucun' 
-})
 
-app.listen(3100,()=>{
+app.use(async (ctx, next)=> {
+  ctx.body = '您好'
+});
+
+app.listen(3100,()=> {
   console.log('[Server] starting at port 3100')
 })

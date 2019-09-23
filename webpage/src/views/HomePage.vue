@@ -326,7 +326,6 @@ export default {
       } catch (error) {
         this.openLoading = true
         console.log(error)
-        alert('练习阿村哥')
       }
     },
     async getRegisterData () {

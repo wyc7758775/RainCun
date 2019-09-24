@@ -18,7 +18,7 @@
   background: grey;
 }
 .pre{
-  background: url('../assets/gamersky_07origin_13_20194618926B.jpg');
+  background: url('http://image.52carlife.com/data/M00/00/DD/rBIyWl2Jw1uAX1oAAAivlDhREyY798.jpg');
   background-size: cover;
   width: 100vw;
   height: 96vh;

@@ -10,6 +10,7 @@
   position: relative;
   top: -50%;
   margin-left: 30px;
+  width: 40px;
 }
 .line{
   width: 100vw;
@@ -59,6 +60,7 @@
       position: absolute;
       left: 50%;
       margin-left: -140px;
+      height: 40px;
     }
     .loging{
       background: rgb(150, 187, 115);

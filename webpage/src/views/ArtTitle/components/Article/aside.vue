@@ -36,8 +36,10 @@ main{
     width: 210px;
     transition: border .3s;
     cursor: pointer;
+    max-height: 120px;
+    overflow: hidden;
     .item-month{
-      width: 28px!important;
+      width: 40px!important;
       font-size: 14px;
       padding: 10px 5px;
     }

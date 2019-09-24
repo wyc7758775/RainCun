@@ -49,7 +49,7 @@ main{
       text-align: center;
       margin-left: 80px;
       .porefile-img-box{
-        width: 80px;
+        width: 120px;
         height: 120px;
         margin-top: 10px;
         border: 2px solid white;
@@ -114,7 +114,7 @@ main{
           </div>
           <div class="porefile-img">
             <div class="porefile-img-box">
-              <img src="" alt="">
+              <img src="http://b185.photo.store.qq.com/psb?/V13wdY8N2PwrVZ/qJt3Z64vC6EhxysBQJyWZPZ8d.aqZFe9EEzpcEsuR6E!/b/dDjtSm4tPgAA&bo=gAKAAkAGQAYFCCs!&rf=viewer_4" alt="">
             </div>
             <div style="color:#e2c;margin-top:6px">主攻WEB前端</div>
           </div>
@@ -180,7 +180,7 @@ const prefileText = [
   },
   {
     nameIcon: 'icon-dianhua',
-    text: '15011394997'
+    text: '17150780153'
   },
   {
     nameIcon: 'icon-dianziyoujian',
@@ -212,11 +212,11 @@ const introduceData = [
     value: [
       {
         name: '学校',
-        content: '北京邮电大学'
+        content: '邢台大学->北京邮电大学(没考上(´;ω;`))'
       },
       {
         name: '学历',
-        content: '硕士'
+        content: '本科->硕士（没考上）'
       },
       {
         name: '专业',
@@ -230,11 +230,11 @@ const introduceData = [
     value: [
       {
         name: '总览',
-        content: 'CSS + HTML + JS + python + C'
+        content: 'CSS + HTML + JS + python + C + Golang'
       },
       {
         name: '描述',
-        content: '掌握WEB前端VUE+ROURER+VUEX三件套 + NODEJS（KOA+芒果）'
+        content: '掌握VUE+ROURER+VUEX三件套 + NODEJS（KOA+芒果）+ 微信小程序 + Jq'
       },
     ]
   },
@@ -243,8 +243,8 @@ const introduceData = [
     titleName: '自我评价',
     value: [
       {
-        name: '优秀！',
-        content: '嵌入式方式进入码农生活。机缘巧合之下，现在主攻WEB前端开发，也深深的喜欢上前端开发即见即可得的开发体验。但是程序员是为了解决的工种，不应该有特定的职业分割。所以也参与后台的表的制定，和开发'
+        name: '乐学：',
+        content: '以嵌入式实习生进入码农生活。机缘巧合之下，主攻WEB前端开发，也深深的喜欢上前端开发即见即可得的开发体验。私以为程序员是为了解决问题的工种，不应有工种的限制，所以也乐于学习后台，学习底层的东西'
       },
     ]
   },
@@ -257,6 +257,10 @@ const WorkExperience = [
       {
         name: '时间',
         content: '2017年6月-2017年11月'
+      },
+      {
+        name: '项目名称',
+        content: '爱智物联后台管理(http://www.aiwisdoms)'
       },
       {
         name: '职位',
@@ -274,8 +278,8 @@ const WorkExperience = [
         name: '工作内容',
         content:  `
           1.整个网站的设计,需求分析,
-          2.技术选项不是由我来的选的。麻痹,
-          3.一个物联网SASS平台系统，为了连接个个平台
+          2.技术选项不是由我来的选的,
+          3.提供物联网开发及云服务，服务于智能硬件，智能电器的sass平台
         `
       }  
     ]    
@@ -324,7 +328,7 @@ const WorkExperience = [
       },
       {
         name: '项目名称',
-        content: '52教育项目-机构后台管理端'
+        content: '52教育项目-机构后台管理端（http://organization.52carlife.com）'
       },
       {
         name: '职位',
@@ -341,9 +345,7 @@ const WorkExperience = [
       {
         name: '工作内容',
         content:  `
-          1.整个网站的设计,需求分析,
-          2.技术选项不是由我来的选的。麻痹,
-          3.一个物联网SASS平台系统，为了连接个个平台
+          午托、幼儿园机构的管理后台。
         `
       }  
     ]    
